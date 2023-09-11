@@ -1,8 +1,12 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv"
 
-const uri = `mongodb+srv://piyush-bhagwat:OJWLe7fCxQFSMCes@cluster.xpwopot.mongodb.net/PizzaDB?retryWrites=true&w=majority`;
+dotenv.config();
+
+const uri = process.env.URI;
 
 const connectDB = async () => {
+    // console.log(process.env.URI);
     try {
         await mongoose.connect(uri);
         console.log("PizzaDB -> connected");

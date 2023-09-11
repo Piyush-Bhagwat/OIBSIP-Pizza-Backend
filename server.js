@@ -4,13 +4,16 @@ import bodyParser from "body-parser";
 import { addPizza } from "./database/schema/pizzaSchema.js";
 import { addCustomer } from "./database/schema/customerSchema.js";
 import cors from "cors";
+import dotenv from "dotenv";
+import { customerRoute } from "./routes/customerRoute.js";
 
 const app = express();
+dotenv.config();
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 const corsOptions = {
     origin: "*",
@@ -26,12 +29,10 @@ app.get("/", (req, res) => {
     res.send("Hello");
 });
 
-app.post("/post", (req, res) =>{
-    let data = req.body;
-    console.log("data -> ", data);
-    addCustomer(data);
-    res.send('Data Received: ' + JSON.stringify(data));
-});
+//Routes
+
+app.use("/api/c", customerRoute);
+app.use("/api/p", customerRoute);
 
 app.listen(4000, () => {
     console.log("app started");
